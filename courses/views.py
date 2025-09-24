@@ -11,6 +11,7 @@ from .serializers import CourseSerializer, LessonSerializer, EnrollmentSerialize
 # A classe CourseViewSet começa aqui, com a indentação correta
 # --------------------------------------------------------------------------
 class CourseViewSet(viewsets.ReadOnlyModelViewSet):
+    tags = ['Cursos']
     queryset = Course.objects.filter(is_published=True).prefetch_related("lessons").order_by("-created_at")
     serializer_class = CourseSerializer
     # Qualquer pessoa pode ver a lista de cursos
@@ -46,6 +47,7 @@ class CourseViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(data)
 
 class EnrollmentViewSet(viewsets.ReadOnlyModelViewSet):
+    tags = ['Cursos']
 
     serializer_class = EnrollmentSerializer
     permission_classes = [permissions.IsAuthenticated]

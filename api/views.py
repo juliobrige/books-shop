@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend   # <<< IMPORT QUE FALTA
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django.db import transaction
+from .permissions import IsAdminOrReadOnly  # <--- adicione isso
+
 from .models import Book, Author, Category, Cart, CartItem, Order, OrderItem
 from .serializers import (
     BookSerializer, AuthorSerializer, CategorySerializer,
@@ -11,10 +13,11 @@ from .serializers import (
     OrderSerializer
 )
 
-class BookViewSet(viewsets.ReadOnlyModelViewSet):
+class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.select_related("category").prefetch_related("authors").order_by("-created_at")
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAdminOrReadOnly] # <-- Use a sua nova permissão
+
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ["category__slug"]
     search_fields = ["title", "description", "authors__name"]

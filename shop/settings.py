@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_filters",
 
+    'phonenumber_field',
+    'django_countries',
     # Documentação
     "drf_spectacular",
     "drf_spectacular_sidecar",
@@ -148,9 +150,30 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Books Shop API",
-    "DESCRIPTION": "API para livros, cursos e usuários.",
+    "DESCRIPTION": "API para loja de livros, carrinho, pedidos e cursos.",
     "VERSION": "1.0.0",
-    "SERVE_INCLUDE_SCHEMA": False,  # oculta rota /schema duplicada
+    "CONTACT": {
+        "name": "Equipe Books Shop",
+        "email": "suporte@booksshop.dev",
+        "url": "https://booksshop.dev",
+    },
+    "LICENSE": {"name": "MIT"},
+    "SERVE_INCLUDE_SCHEMA": False,  # manter schema separado de /api/schema/
+    "SCHEMA_PATH_PREFIX": r"/(store|courses|users|api)",  # opcional: filtra o que entra no schema
+
+    # UX do Swagger
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+        "displayRequestDuration": True,
+        "filter": True,                 # caixa de filtro na barra superior
+        "persistAuthorization": True,   # mantém o Bearer token entre reloads
+        "tryItOutEnabled": True,        # botão "Try it out" por padrão
+        "syntaxHighlight": {"activated": True},
+    },
+
+    # Usa assets locais (sem depender de CDN) via sidecar
+    "SWAGGER_UI_DIST": "SIDECAR",  # requer drf_spectacular_sidecar
+    "REDOC_DIST": "SIDECAR",
 }
 # --- CORS Headers ---
 # Define quais origens (sites) podem aceder à nossa API

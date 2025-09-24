@@ -32,7 +32,18 @@ class Book(TimeStamped):
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, default=0)
     stock = models.PositiveIntegerField(default=0)
-    cover = models.URLField(blank=True)
+    cover_image = models.ImageField(
+        upload_to='book_covers/',  # Guarda as imagens em 'media/book_covers/'
+        blank=True, 
+        null=True,
+        verbose_name="Imagem de Capa"
+    )
+    book_file = models.FileField(
+        upload_to='book_files/',  # Guarda os ficheiros em 'media/book_files/'
+        blank=True, 
+        null=True,
+        verbose_name="Ficheiro do Livro (PDF, EPUB)"
+    )
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="books")
     authors = models.ManyToManyField(Author, related_name="books")
 

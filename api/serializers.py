@@ -12,12 +12,14 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ["id", "name", "slug"]
 
 class BookSerializer(serializers.ModelSerializer):
-    authors = AuthorSerializer(many=True, read_only=True)
+    # Opcional: melhora a representação dos campos de chave estrangeira
     category = CategorySerializer(read_only=True)
+    authors = AuthorSerializer(many=True, read_only=True)
 
     class Meta:
         model = Book
-        fields = ["id", "title", "slug", "description", "price", "stock", "cover", "category", "authors", "created_at"]
+        # '__all__' irá automaticamente incluir os novos campos `cover_image` e `book_file`
+        fields = '__all__'
 
 
 # --------- Carrinho & Pedidos ---------

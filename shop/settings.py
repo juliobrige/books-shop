@@ -149,9 +149,19 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Books Shop API",
-    "DESCRIPTION": "API para loja de livros, carrinho, pedidos e cursos.",
-    "VERSION": "1.0.0",
+        'TITLE': 'Books-Shop & LMS API',
+    'DESCRIPTION': """
+Documentação detalhada para a API da plataforma Books-Shop.
+
+Funcionalidades principais:
+- 📖 **Loja:** Catálogo de livros, carrinho de compras e sistema de pedidos.
+- 🎓 **Cursos:** Catálogo de cursos, matrículas e acompanhamento de progresso.
+- 👤 **Utilizadores:** Autenticação, registo e gestão de perfis.
+    """,
+    'VERSION': '0.2.0', # Use a versão atual do seu projeto
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
     "CONTACT": {
         "name": "Equipe Books Shop",
         "email": "suporte@booksshop.dev",
@@ -181,6 +191,8 @@ SPECTACULAR_SETTINGS = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://localhost:5173", # <-- GARANTA QUE ESTA LINHA EXISTE
+    "http://127.0.0.1:5173", # <-- Adicione esta também por segurança
 ]
 # Para um ambiente de desenvolvimento muito inicial, pode usar:
 #CORS_ALLOW_ALL_ORIGINS = True

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>{{ settings.SPECTACULAR_SETTINGS.TITLE }} – Docs</title>
+    <link rel="icon" href="{% static 'img/favicon.png' %}">
+    {{ swagger_ui_settings|json_script:"swagger-settings" }}
+    {% if use_sidecar %}
+      <link rel="stylesheet" type="text/css" href="{% static 'drf_spectacular_sidecar/swagger-ui-dist/swagger-ui.css' %}">
+      <script src="{% static 'drf_spectacular_sidecar/swagger-ui-dist/swagger-ui-bundle.js' %}"></script>
+      <script src="{% static 'drf_spectacular_sidecar/swagger-ui-dist/swagger-ui-standalone-preset.js' %}"></script>
+    {% else %}
+      <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
+      <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+      <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/custom-swagger.css' %}">
+  </head>
+  <body>
+    <div id="swagger-ui"></div>
+
+    <script>
+      const settings = JSON.parse(document.getElementById('swagger-settings').textContent);
+
+      window.onload = () => {
+        const ui = SwaggerUIBundle({
+          url: settings.url,
+          dom_id: '#swagger-ui',
+          deepLinking: settings.deepLinking,
+          presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+          plugins: [SwaggerUIBundle.plugins.DownloadUrl],
+          layout: "BaseLayout",
+          displayRequestDuration: settings.displayRequestDuration,
+          filter: settings.filter,
+          persistAuthorization: settings.persistAuthorization,
+          tryItOutEnabled: settings.tryItOutEnabled,
+          syntaxHighlight: settings.syntaxHighlight,
+        });
+
+        // logo custom
+        const topbar = document.querySelector('.topbar-wrapper a.link');
+        if (topbar) {
+          topbar.innerHTML = `
+            <img src="{% static 'img/logo.svg' %}" alt="Logo"> <span>Books Shop API</span>
+          `;
+        }
+
+        window.ui = ui;
+      };
+    </script>
+  </body>
+</html>

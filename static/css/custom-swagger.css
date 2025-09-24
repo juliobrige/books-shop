@@ -1,0 +1,36 @@
+/* Topbar */
+.swagger-ui .topbar { background: #141414 !important; }
+.swagger-ui .topbar .download-url-wrapper { display: none; }
+.swagger-ui .topbar .link { display: flex; align-items: center; gap: .5rem; }
+.swagger-ui .topbar .link img { height: 28px; }
+
+/* Background geral */
+.swagger-ui .information-container,
+.swagger-ui .scheme-container,
+.swagger-ui .opblock-tag-section {
+  background: #0f1115 !important;
+  color: #eaeaea;
+}
+
+/* Cards das operações */
+.swagger-ui .opblock { border-radius: 12px; }
+.swagger-ui .opblock .opblock-summary { border-radius: 12px; }
+
+/* Tabelas */
+.swagger-ui table thead tr th {
+  background: #1b1f2a;
+  color: #c9d1d9;
+}
+.swagger-ui table tbody tr td {
+  background: #0f1115;
+  color: #eaeaea;
+}
+
+/* Inputs */
+.swagger-ui input,
+.swagger-ui textarea,
+.swagger-ui select {
+  background: #0f1115;
+  color: #eaeaea;
+  border-color: #2d3340;
+}
